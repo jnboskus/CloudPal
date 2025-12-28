@@ -1,0 +1,70 @@
+import express from "express";
+import axios from "axios";
+import xlsx from "xlsx";
+import fs from "fs";
+
+
+const app=express();
+const port=3000;
+
+app.use(express.urlencoded({extended:true}))
+app.use(express.static("Public"));
+
+
+// const excelFile = "Public/worldcities.xlsx";
+// const workbook = xlsx.readFile(excelFile); 
+// const sheetName = workbook.SheetNames[0]; 
+// const sheet = workbook.Sheets[sheetName];
+// const rows = xlsx.utils.sheet_to_json(sheet, { defval: null }); 
+
+// const groupedData = {};
+// rows.forEach((row)=>{
+//     const country = row.Country;
+//     const city = row.City;
+//     if(!groupedData[country]){
+//         groupedData[country] = [];
+//     }
+//     groupedData[country].push(city);
+    
+// }); 
+
+// fs.writeFileSync("groupedData.json", JSON.stringify(groupedData, null, 2), "utf-8");
+
+
+
+
+app.get("/", (req,res)=>{
+
+
+    res.render("index.ejs");
+})
+
+
+const API_KEY = 'b32fdbb4ff834113b55145848252512'; // replace with your WeatherAPI key 
+
+
+app.post("/check", async(req,res)=>{
+    
+    const location=req.body.city
+     try { const datum = await axios.get('https://api.weatherapi.com/v1/current.json', 
+        { params: { 
+            key: API_KEY, q: location, 
+            aqi: 'yes' // optional: exclude air quality data 
+            } })
+        
+        const result = datum.data;
+        res.render("index.ejs", { result });
+        }
+    
+         catch (error) { 
+        console.error('Error fetching weather data:', error.message); 
+    }
+    }
+    ) 
+
+
+
+
+app.listen(port,()=>{
+    console.log(`Server is running on the port${port}`)
+})

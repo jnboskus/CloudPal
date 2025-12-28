@@ -1,0 +1,47 @@
+
+<%- include("partials/header.ejs") %>
+<% if (locals.result) { %> 
+    <main class="weather-display"> <!-- Division 1: Location + Time --> 
+    <div class="weather-block location-time"> 
+    <p><%= result.location.name %>, <%= result.location.country %></p> 
+    <p><%= result.location.localtime %></p> 
+</div> 
+
+<!-- Division 2: Condition image + text + feels like --> 
+<div class="weather-block condition-info"> 
+    <p><%= result.current.temp_c %>°C</p>
+    <img src="<%= result.current.condition.icon %>" alt="Weather icon"> 
+    <p><%= result.current.condition.text %></p> 
+    <p>Feels like: <%= result.current.feelslike_c %> °C</p> 
+</div> 
+
+<!-- Division 3: Wind, humidity, visibility, pressure, air quality --> 
+<div class="weather-block details-info"> 
+    <p>Wind: <%= result.current.wind_kph %> kph</p> 
+    <p>Humidity: <%= result.current.humidity %>%</p> 
+    <p>Visibility: <%= result.current.vis_km %> km</p> 
+    <p>Pressure: <%= result.current.pressure_mb %> mb</p> 
+    <% if (locals.result.current.air_quality) { %> 
+        <p>Air Quality (PM2.5): <%= result.current.air_quality.pm2_5 %></p> 
+        <% } %> 
+    </div> 
+
+    <!-- Division 4: Message relating to condition + air quality --> 
+    <!-- <div class="weather-block summary-info"> 
+        <p> Today’s weather is <%= result.current.condition.text %>. 
+            <% if (result.current.air_quality) { %> 
+                Air quality index is <%= result.current.air_quality["us-epa-index"] %>. 
+                <% } %>\
+             </p> 
+            </div>  -->
+
+            <!-- Button to show search form again --> 
+             <div class="weather-block search-again"> 
+                <form action="/" method="get"> 
+                    <button type="submit" class="buttona">Search Again</button> 
+                </form> 
+            </div> 
+        </main> 
+        <% } %>
+
+<%- include("partials/footer.ejs") %>

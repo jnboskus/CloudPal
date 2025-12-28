@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    
+
+<header >
+        
+  <div class="container background"> 
+    <% if (!locals.result) { %>
+            <h1 class="title">Welcome to Cloud Pal</h1>
+<% } %>
+            
+  </div >
+
+<% if (!locals.result) { %>
+  <div class="containera">
+    <div class="inner-cont">
+<h2 style="text-align: center;">Where are you today?</h2>
+     <form action="/check" method="post">
+                <label for="country"><b>Country:</b></label> 
+                <input list="countries" id="country" name="country" placeholder="Start typing a country..."> 
+                <datalist id="countries">
+                </datalist> 
+
+            <label for="cities"><b>City:</b></label>
+            <input list="cities" type="text" id="city" name="city" placeholder="Choose a city">
+            <datalist id="cities"></datalist>
+            <input type="submit" value="Submit" class="button">
+     </form>
+    </div>
+    
+
+   </div>
+        <% } %>
+    </header>
