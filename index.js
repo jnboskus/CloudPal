@@ -39,9 +39,18 @@ app.get("/", (req,res)=>{
     res.render("index.ejs");
 })
 
+function loadAPIKey() {
+    try {
+        const data = fs.readFileSync('secrets.json', 'utf-8');
+        const config = JSON.parse(data);
+        return config.API_KEY;
+    } catch (error) {
+        console.error('Error reading API key:', error.message);
+        return null;
+    }
+}
 
-const API_KEY = 'b32fdbb4ff834113b55145848252512'; // replace with your WeatherAPI key 
-
+const API_KEY = loadAPIKey();
 
 app.post("/check", async(req,res)=>{
     
@@ -66,5 +75,5 @@ app.post("/check", async(req,res)=>{
 
 
 app.listen(port,()=>{
-    console.log(`Server is running on the port${port}`)
+    console.log(`Server is running on the port: ${port}`)
 })
