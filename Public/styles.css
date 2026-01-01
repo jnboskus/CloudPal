@@ -1,4 +1,21 @@
 /* Global reset & base */
+
+html, body {
+  height: 100%;           /* full viewport height */
+  display: flex;
+  flex-direction: column; /* stack children vertically */
+}
+
+main {
+  flex: 1;                /* take up remaining space */
+}
+
+footer {
+  margin-top: auto;       /* push footer to bottom */
+}
+
+
+
 * {
   box-sizing: border-box;
   margin: 0;

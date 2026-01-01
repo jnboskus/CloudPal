@@ -12,33 +12,42 @@
 <body>
     
 
-<header >
-    <% if (!locals.result) { %>
-            <h1 class="title">Welcome to Cloud Pal</h1>
-<% } %>     
-  <div class="container background"> 
-   
-            
-  </div >
+<header>
+  <% if (!locals.result && !locals.error) { %>
+    <h1 class="title">Welcome to Cloud Pal</h1>
+  <% } %>     
 
-<% if (!locals.result) { %>
-  <div class="containera">
-    <div class="inner-cont">
-<h2 style="text-align: center;">Where are you today?</h2>
-     <form action="/check" method="post">
-                <label for="country"><b>Country:</b></label> 
-                <input list="countries" id="country" name="country" placeholder="Start typing a country..."> 
-                <datalist id="countries">
-                </datalist> 
+  <div class="container background"></div>
 
-            <label for="cities"><b>City:</b></label>
-            <input list="cities" type="text" id="city" name="city" placeholder="Choose a city">
-            <datalist id="cities"></datalist>
-            <input type="submit" value="Submit" class="button">
-     </form>
+  <% if (!locals.result && !locals.error) { %>
+    <!-- Show form only when no result and no error -->
+    <div class="containera">
+      <div class="inner-cont">
+        <h2 style="text-align: center;">Where are you today?</h2>
+        <form action="/check" method="post">
+          <label for="city"><b>City:</b></label>
+          <input list="cities" id="city" name="city" placeholder="Start typing a city..." required>
+          <datalist id="cities">
+            <!-- Populate dynamically if desired -->
+          </datalist>
+          <input type="submit" value="Submit" class="button">
+        </form>
+      </div>
     </div>
-    
+  <% } else if (locals.error) { %>
+    <!-- Show error instead of form -->
+    <div class="containera">
+      <div class="inner-cont">
+        <h2 style="text-align: center; color: inherit;">Error</h2>
+        <p style="text-align: center; font-weight: bold; color: inherit;">
+          <%= error %>
+        </p>
+        <form action="/" method="get">
+          <button type="submit" class="buttona">Try Again</button>
+        </form>
+      </div>
+    </div>
+  <% } %>
+</header>
 
-   </div>
-        <% } %>
-    </header>
+
