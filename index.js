@@ -2,8 +2,9 @@ import express from "express";
 import axios from "axios";
 import xlsx from "xlsx";
 import fs from "fs";
+import dotenv from "dotenv";
 
-
+dotenv.config();
 const app=express();
 const PORT = process.env.PORT || 3000;
 
@@ -39,25 +40,16 @@ app.get("/", (req,res)=>{
     res.render("index.ejs");
 })
 
-function loadAPIKey() {
-    try {
-        const data = fs.readFileSync('secrets.json', 'utf-8');
-        const config = JSON.parse(data);
-        return config.API_KEY;
-    } catch (error) {
-        console.error('Error reading API key:', error.message);
-        return null;
-    }
-}
+const apiKey = process.env.API_KEY
 
-const API_KEY = loadAPIKey();
+
 
 app.post("/check", async(req,res)=>{
     
     const location=req.body.city
      try { const datum = await axios.get('https://api.weatherapi.com/v1/current.json', 
         { params: { 
-            key: API_KEY, q: location, 
+            key: apiKey, q: location, 
             aqi: 'yes' // optional: exclude air quality data 
             } })
         
