@@ -5,7 +5,7 @@ import fs from "fs";
 
 
 const app=express();
-const port=3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.static("Public"));
@@ -75,5 +75,5 @@ app.post("/check", async(req,res)=>{
 
 
 app.listen(port,()=>{
-    console.log(`Server is running on the port: ${port}`)
+    console.log(`Server is running on the port: ${PORT}`)
 })
